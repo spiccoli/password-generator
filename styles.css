@@ -1,0 +1,46 @@
+body{
+    font-family:Arial,sans-serif;
+    background-color:#f9f9f9;
+    text-align:center;
+    margin:0;
+    padding:0
+}
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+     height:100vh
+}
+input[type="number"]{
+    width:100px;
+    padding:5px;
+    margin-bottom:10px
+}             
+.checkboxes div{margin-bottom:5px
+}
+button{
+    background:hsl(240, 83%, 65%);
+    border-radius:999px;
+    box-shadow:hsl(240, 83%, 65%) 0 10px 20px -10px;
+    box-sizing:border-box;
+    color:#FFFFFF;
+    cursor:pointer;
+    font-family:Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+    font-size:16px; font-weight:700;
+    line-height:24px;
+    opacity:1;
+    outline:0 solid transparent;
+    padding:8px 18px;
+    touch-action:manipulation;
+    width:fit-content;
+    word-break:break-word;
+    border:0
+}
+button:hover{
+    background:hsl(240, 83%, 60%);
+
+}
+#password-output{
+    font-size:18px;
+    margin-top:20px
+}
