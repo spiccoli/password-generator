@@ -16,9 +16,16 @@ function GeneratePassword() {
 
 
     let allowedCharacters = ""; // Characters that the generator could use
-
-    if (passLength < 1 || passLength > 128) {
-        document.getElementById("password-output").textContent = "Password must be between 1 and 128 characters";
+    if (passLength > 128) {
+        const confirmation = window.confirm("Generating a password longer than 128 characters can be risky and not optimal. Do you want to proceed?");
+        if (!confirmation) {
+            // User clicked "Cancel," so stop the function
+            return;
+        }
+    }
+    
+    if (passLength < 1) {
+        document.getElementById("password-output").textContent = "Password must be greater than 1";
         return;
     }
 
