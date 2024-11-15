@@ -32,18 +32,30 @@ function generatePassword() {
     if (includeNumbers) allowedCharacters += numbers;
     if (includeSymbols) allowedCharacters += symbols;
 
+    // Log allowedCharacters to debug
+    console.log("Allowed characters:", allowedCharacters);
+
     // Ensure at least one of each selected type is included
     if (includeLowerCase) generatedPassword += lowerCase.charAt(Math.floor(Math.random() * lowerCase.length));
     if (includeUpperCase) generatedPassword += upperCase.charAt(Math.floor(Math.random() * upperCase.length));
     if (includeNumbers) generatedPassword += numbers.charAt(Math.floor(Math.random() * numbers.length));
     if (includeSymbols) generatedPassword += symbols.charAt(Math.floor(Math.random() * symbols.length));
 
+    // Log generatedPassword to debug
+    console.log("Initial generated password with at least one of each type:", generatedPassword);
+
     for (let i = generatedPassword.length; i < passLength; i++) {
         const randomIndex = Math.floor(Math.random() * allowedCharacters.length);
         generatedPassword += allowedCharacters[randomIndex];
     }
 
-    document.getElementById("password-output").textContent = shuffleString(generatedPassword);
+    // Log final password before shuffling
+    console.log("Generated password before shuffling:", generatedPassword);
+
+    const finalPassword = shuffleString(generatedPassword);
+    console.log("Final shuffled password:", finalPassword);
+
+    document.getElementById("password-output").textContent = finalPassword;
 }
 
 function copyToClipboard() {
@@ -59,7 +71,7 @@ function copyToClipboard() {
 
     try {
         const successful = document.execCommand('copy');
-        const message = successful ? 'Password copied to clipboard!' : 'Error: Unable to copy password.';
+        const message = successful ? 'Passwford copied to clipboard!' : 'Error: Unable to copy password.';
         console.log(message);
     } catch (err) {
         console.error("Error: Password could not be copied:", err);
