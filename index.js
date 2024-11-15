@@ -8,12 +8,11 @@ function generatePassword() {
     const includeNumbers = document.getElementById("numbersCheck").checked;
     const includeSymbols = document.getElementById("symbolsCheck").checked;
 
-    let allowedCharacters = ""; // Characters the generator can use
+    let allowedCharacters = "";
+    let generatedPassword = "";
 
     if (passLength > 128) {
-        const confirmation = window.confirm("Generating a password longer than 128 characters can be risky and not optimal. Do you want to proceed?");
-        if (!confirmation) {
-            // User clicked "Cancel," so stop the function
+        if (!confirm("Generating a password longer than 128 characters can be risky and not optimal. Do you want to proceed?")) {
             return;
         }
     }
@@ -33,26 +32,30 @@ function generatePassword() {
     if (includeNumbers) allowedCharacters += numbers;
     if (includeSymbols) allowedCharacters += symbols;
 
-    let generatedPassword = "";
-    for (let i = 0; i < passLength; i++) {
+    // Ensure at least one of each selected type is included
+    if (includeLowerCase) generatedPassword += lowerCase.charAt(Math.floor(Math.random() * lowerCase.length));
+    if (includeUpperCase) generatedPassword += upperCase.charAt(Math.floor(Math.random() * upperCase.length));
+    if (includeNumbers) generatedPassword += numbers.charAt(Math.floor(Math.random() * numbers.length));
+    if (includeSymbols) generatedPassword += symbols.charAt(Math.floor(Math.random() * symbols.length));
+
+    for (let i = generatedPassword.length; i < passLength; i++) {
         const randomIndex = Math.floor(Math.random() * allowedCharacters.length);
         generatedPassword += allowedCharacters[randomIndex];
     }
-    
-    document.getElementById("password-output").textContent = generatedPassword;
+
+    document.getElementById("password-output").textContent = shuffleString(generatedPassword);
 }
 
 function copyToClipboard() {
     const passwordOutput = document.getElementById("password-output");
-    const range = document.createRange();
-    range.selectNode(passwordOutput);
-    window.getSelection().removeAllRanges(); // Clear existing selection
-    window.getSelection().addRange(range);
-
     if (passwordOutput.textContent === "") {
         console.log("Error: Password must be generated first");
         return;
     }
+    const range = document.createRange();
+    range.selectNode(passwordOutput);
+    window.getSelection().removeAllRanges(); // Clear existing selection
+    window.getSelection().addRange(range);
 
     try {
         const successful = document.execCommand('copy');
@@ -63,4 +66,13 @@ function copyToClipboard() {
     }
 
     window.getSelection().removeAllRanges(); // Clean up the selection
+}
+
+function shuffleString(string) {
+    const array = string.split('');
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array.join('');
 }
