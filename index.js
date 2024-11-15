@@ -1,21 +1,15 @@
-function GeneratePassword() {
-    let inputPassLength = document.getElementById("passlength").value;
+function generatePassword() {
+    const inputPassLength = document.getElementById("passlength").value;
     const passLength = parseInt(inputPassLength);
-    document.getElementById("passlength").value = passLength; // Just a detail to see the parsed number inside the textbox
+    document.getElementById("passlength").value = passLength; // Show the parsed number in the textbox
 
-    let includeLowerCase = document.getElementById("lowerCaseCheck");
-    let includeUpperCase = document.getElementById("upperCaseCheck");
-    let includeNumbers = document.getElementById("numbersCheck");
-    let includeSymbols = document.getElementById("symbolsCheck");
+    const includeLowerCase = document.getElementById("lowerCaseCheck").checked;
+    const includeUpperCase = document.getElementById("upperCaseCheck").checked;
+    const includeNumbers = document.getElementById("numbersCheck").checked;
+    const includeSymbols = document.getElementById("symbolsCheck").checked;
 
-    if(!includeLowerCase.checked) includeLowerCase = false;
-    if(!includeUpperCase.checked) includeUpperCase = false;
-    if(!includeNumbers.checked) includeNumbers = false;
-    if(!includeSymbols.checked) includeSymbols = false;
+    let allowedCharacters = ""; // Characters the generator can use
 
-
-
-    let allowedCharacters = ""; // Characters that the generator could use
     if (passLength > 128) {
         const confirmation = window.confirm("Generating a password longer than 128 characters can be risky and not optimal. Do you want to proceed?");
         if (!confirmation) {
@@ -48,11 +42,11 @@ function GeneratePassword() {
     document.getElementById("password-output").textContent = generatedPassword;
 }
 
-function CopyToClipboard() {
+function copyToClipboard() {
     const passwordOutput = document.getElementById("password-output");
     const range = document.createRange();
     range.selectNode(passwordOutput);
-    window.getSelection().removeAllRanges(); // Clear any existing selection
+    window.getSelection().removeAllRanges(); // Clear existing selection
     window.getSelection().addRange(range);
 
     if (passwordOutput.textContent === "") {
